@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy Policy — Shubh Kothari</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════
+   CORE THEME & VARIABLES
+══════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#030309;--lime:#d8ff47;--lime-d:rgba(216,255,71,.1);
+  --purple:#7b5ea7;--white:#f0f0fc;--dim:rgba(240,240,252,.42);
+  --border:rgba(240,240,252,.08);
+  --fd:'Bebas Neue',sans-serif;--fb:'DM Sans',sans-serif;--fm:'JetBrains Mono',monospace
+}
+html{scroll-behavior:auto;overflow-x:hidden}
+body{background:var(--black);color:var(--white);font-family:var(--fb);overflow-x:hidden}
+@media(pointer:fine){body{cursor:none}}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--lime);border-radius:2px}
+
+/* CURSOR */
+#cd,#cr{position:fixed;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);display:none}
+@media(pointer:fine){#cd,#cr{display:block}}
+#cd{width:6px;height:6px;background:var(--lime);transition:width .15s,height .15s}
+#cr{width:36px;height:36px;border:1.5px solid rgba(216,255,71,.5)}
+body.ch #cd{width:10px;height:10px}
+body.ch #cr{width:52px;height:52px;border-color:var(--lime)}
+body.ck #cd{width:4px;height:4px}
+
+/* NAVIGATION (Reused from Main) */
+#nav-logo { position: fixed; top: 2rem; left: clamp(1.2rem, 5vw, 3rem); z-index: 7000; font-family: var(--fd); font-size: 2.2rem; color: var(--white); letter-spacing: 0.06em; cursor: pointer; transition: color 0.3s, transform 0.3s; text-decoration: none; }
+#nav-logo:hover { color: var(--lime); transform: scale(1.05); }
+@media(max-width: 768px) { #nav-logo { top: 1.5rem; left: 1.5rem; } }
+
+#menu-trigger{ position:fixed; top:2rem;right:2rem; z-index:7000; width:52px;height:52px;border-radius:50%; background:rgba(3,3,9,.6); backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px); border:1px solid rgba(216,255,71,.22); cursor:pointer; display:flex;align-items:center;justify-content:center; transition:border-color .35s,background .35s,transform .25s; }
+#menu-trigger-label{ position:fixed; top:2.85rem;right:6.5rem; z-index:7000; font-family:var(--fm);font-size:.55rem;letter-spacing:.32em;text-transform:uppercase; color:rgba(216,255,71,.5); pointer-events:none; }
+.trigger-icon { width: 22px; height: 14px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+.ti-bar { display: block; width: 100%; height: 1.5px; background-color: var(--lime); border-radius: 2px; transition: transform 0.4s cubic-bezier(0.77, 0, 0.18, 1), opacity 0.3s, background-color 0.3s; transform-origin: center; }
+#menu-trigger:hover { background: rgba(216, 255, 71, 0.1); border-color: rgba(216, 255, 71, 0.5); }
+#menu-trigger:hover .ti-bar { background-color: var(--white); }
+#menu-trigger.active .ti-bar:nth-child(1) { transform: translateY(6.25px) rotate(45deg); }
+#menu-trigger.active .ti-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+#menu-trigger.active .ti-bar:nth-child(3) { transform: translateY(-6.25px) rotate(-45deg); }
+
+/* HUD MENU (Reused from Main) */
+#fs-menu { position: fixed; inset: 0; z-index: 6500; pointer-events: none; display: flex; align-items: center; justify-content: center; }
+.fs-bg { position: absolute; inset: 0; background: rgba(3, 3, 9, 0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.18, 1); }
+.fs-grid { position: absolute; inset: 0; opacity: 0; background-image: linear-gradient(rgba(216,255,71,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(216,255,71,.03) 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%); -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%); transition: opacity 1s ease 0.4s; }
+#fs-menu.open .fs-bg { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); pointer-events: all; }
+#fs-menu.open .fs-grid { opacity: 1; pointer-events: none; }
+#fs-menu.open { pointer-events: all; }
+.fs-wrapper { position: relative; z-index: 1; width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; padding: 0 clamp(2rem, 5vw, 4rem); gap: 4rem; }
+.fs-content { display: flex; flex-direction: column; gap: 1.5rem; flex: 1; }
+.fs-link { font-family: var(--fd); font-size: clamp(3.5rem, 8vw, 7rem); color: transparent; -webkit-text-stroke: 1.5px rgba(240,240,252,.15); text-decoration: none; letter-spacing: 0.02em; text-transform: uppercase; opacity: 0; transform: translateY(60px); transition: -webkit-text-stroke 0.3s, color 0.3s, padding-left 0.4s cubic-bezier(0.77, 0, 0.18, 1); display: inline-block; width: fit-content; }
+.fs-link:hover { color: var(--lime); -webkit-text-stroke: 1.5px var(--lime); padding-left: 1.5rem; }
+.fs-num { font-family: var(--fm); font-size: clamp(0.8rem, 1.5vw, 1.2rem); color: var(--lime); vertical-align: top; margin-right: 1.5rem; opacity: 0.5; -webkit-text-stroke: 0; }
+.fs-hud { flex: 0.8; max-width: 400px; border-left: 1px solid var(--border); padding-left: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; opacity: 0; transform: translateX(40px); }
+.fs-hud-title { font-family: var(--fm); font-size: 0.65rem; color: var(--lime); letter-spacing: 0.3em; text-transform: uppercase; }
+.fs-hud-text { font-family: var(--fm); font-size: 0.75rem; color: var(--dim); line-height: 1.8; letter-spacing: 0.1em; white-space: pre-wrap; height: 120px; }
+
+@media(max-width: 768px) {
+  .fs-wrapper { flex-direction: column; justify-content: center; text-align: center; }
+  .fs-hud { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 2rem; max-width: 100%; align-items: center; text-align: center; }
+  .fs-link:hover { padding-left: 0; letter-spacing: 0.06em; }
+  #menu-trigger{top:1.5rem;right:1.5rem;}
+  #menu-trigger-label{display:none}
+}
+
+/* FOOTER */
+footer{padding:clamp(1.2rem,3vw,2rem) clamp(1.2rem,5vw,3rem);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem; margin-top: 6rem;}
+.fl{font-family:var(--fd);font-size:1.45rem;color:var(--lime);letter-spacing:.06em}
+.fc{font-family:var(--fm);font-size:.6rem;color:var(--dim);letter-spacing:.1em}
+
+/* ══════════════════════════════════════
+   LEGAL PAGE SPECIFIC STYLES
+══════════════════════════════════════ */
+.legal-hero {
+  position: relative;
+  padding: clamp(8rem, 15vw, 12rem) clamp(1.2rem, 5vw, 3rem) 4rem;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.legal-hero::before {
+  content: '05';
+  position: absolute;
+  right: -2rem;
+  top: 2rem;
+  font-family: var(--fd);
+  font-size: min(30vw, 22rem);
+  color: var(--border);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+.hg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(216,255,71,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(216,255,71,.03) 1px, transparent 1px);
+  background-size: 55px 55px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 20%, transparent 100%);
+}
+.lh-content { position: relative; z-index: 2; }
+.sl { font-family: var(--fm); font-size: .62rem; letter-spacing: .28em; text-transform: uppercase; color: var(--lime); margin-bottom: 1.2rem; display: flex; align-items: center; gap: .7rem; }
+.sl::before { content: ''; display: block; width: 20px; height: 1px; background: var(--lime); flex-shrink: 0; }
+.sh { font-family: var(--fd); font-size: clamp(3.5rem, 8vw, 6.5rem); line-height: 0.9; letter-spacing: 0.02em; margin-bottom: 2rem; }
+
+.legal-body {
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.2rem, 5vw, 3rem);
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.legal-date {
+  font-family: var(--fm);
+  font-size: 0.7rem;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+  margin-bottom: 4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  display: inline-block;
+}
+.legal-sec { margin-bottom: 4rem; }
+.legal-h { font-family: var(--fd); font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--white); margin-bottom: 1.2rem; letter-spacing: 0.04em; }
+.legal-p { font-size: clamp(0.9rem, 1.5vw, 1.05rem); color: var(--dim); line-height: 1.8; margin-bottom: 1.2rem; font-weight: 300; }
+.legal-p strong { color: var(--white); font-weight: 500; }
+.legal-p a { color: var(--lime); text-decoration: none; transition: color 0.3s; }
+.legal-p a:hover { color: var(--white); }
+
+.legal-list { list-style: none; margin-bottom: 1.5rem; }
+.legal-list li { font-size: clamp(0.9rem, 1.5vw, 1.05rem); color: var(--dim); line-height: 1.8; margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; font-weight: 300; }
+.legal-list li::before { content: '✦'; position: absolute; left: 0; top: 0; color: var(--lime); font-size: 0.7rem; line-height: 2.4; }
+
+.back-btn-wrap { margin-top: 4rem; display: flex; }
+.mb { display: inline-flex; align-items: center; gap: .8rem; padding: .9rem 2rem; border: 1.5px solid var(--border); border-radius: 40px; background: transparent; color: var(--white); cursor: pointer; font-family: var(--fm); font-size: clamp(.65rem,.95vw,.75rem); letter-spacing: .18em; text-transform: uppercase; transition: background .3s, color .3s, border-color .3s; text-decoration: none; }
+.mb:hover { background: var(--lime); color: var(--black); border-color: var(--lime); }
+
+</style>
+</head>
+<body>
+
+<div id="cd"></div><div id="cr"></div>
+
+<!-- SK LOGO -->
+<a href="index.html" id="nav-logo">SK</a>
+
+<!-- MENU LABEL -->
+<div id="menu-trigger-label">Menu</div>
+
+<!-- MENU TRIGGER -->
+<button id="menu-trigger" onclick="toggleMenu()" aria-label="Open navigation" aria-expanded="false">
+  <div class="trigger-icon">
+    <span class="ti-bar"></span><span class="ti-bar"></span><span class="ti-bar"></span>
+  </div>
+</button>
+
+<!-- RADIAL MENU OVERLAY -->
+<div id="fs-menu">
+  <div class="fs-bg"></div>
+  <div class="fs-grid"></div>
+  <div class="fs-wrapper">
+    <div class="fs-content">
+      <a href="index.html#about" class="fs-link" data-info="IDENTIFICATION: SHUBH KOTHARI&#10;ROLE: WEB DEVELOPER&#10;LOC: VIT CHENNAI" onclick="closeMenu()">
+        <span class="fs-num">01</span> About
+      </a>
+      <a href="index.html#work" class="fs-link" data-info="ARCHIVES: SELECTED PROJECTS&#10;FRAMEWORKS: THREE.JS, REACT" onclick="closeMenu()">
+        <span class="fs-num">02</span> Work
+      </a>
+      <a href="index.html#contact" class="fs-link" data-info="COMMUNICATION: SECURE CHANNEL&#10;FREQ: OPEN FOR WORK" onclick="closeMenu()">
+        <span class="fs-num">03</span> Contact
+      </a>
+    </div>
+    <div class="fs-hud">
+      <div class="fs-hud-title">SYS.NAV // DATA</div>
+      <div class="fs-hud-text" id="fs-hud-text">AWAITING USER INPUT..._</div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<section class="legal-hero">
+  <div class="hg"></div>
+  <div style="position:absolute;z-index:1;width:min(700px,90vw);height:min(700px,90vw);top:0%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(216,255,71,.07) 0%,transparent 65%);pointer-events:none;border-radius:50%"></div>
+  
+  <div class="lh-content">
+    <div class="sl">Legal Information</div>
+    <h1 class="sh">Privacy<br><span style="color:var(--lime)">Policy.</span></h1>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="legal-body">
+  <div class="legal-date">LAST UPDATED: <strong>MAY 2026</strong></div>
+
+  <div class="legal-sec">
+    <h2 class="legal-h">01. Overview</h2>
+    <p class="legal-p">This Privacy Policy describes how <strong>Shubh Kothari</strong> ("I", "me", or "my") collects, uses, and protects your information when you visit my personal portfolio website and interact with my digital services.</p>
+    <p class="legal-p">As a freelance web developer and creative technologist, I respect your privacy and am committed to maintaining a secure digital environment. This site operates with minimalism in mind, collecting only what is strictly necessary to provide a high-end experience and facilitate communication.</p>
+  </div>
+
+  <div class="legal-sec">
+    <h2 class="legal-h">02. Data Collection</h2>
+    <p class="legal-p">I intentionally limit the data collected through this digital experience. Information is generally categorized into two types:</p>
+    <ul class="legal-list">
+      <li><strong>Information you provide directly:</strong> When you reach out via email (shubhkothari.dev@gmail.com) or inquire about freelance services, I collect your name, email address, and the contents of your message.</li>
+      <li><strong>Information collected automatically:</strong> To ensure the smooth running of WebGL animations and GSAP interactions, basic, non-personally identifiable technical data (such as browser type, device resolution, and general geographic region) may be temporarily processed by standard analytics or hosting providers.</li>
+    </ul>
+  </div>
+
+  <div class="legal-sec">
+    <h2 class="legal-h">03. Use of Information</h2>
+    <p class="legal-p">Any information collected is used exclusively for professional purposes:</p>
+    <ul class="legal-list">
+      <li>To respond to your inquiries regarding collaborations, projects, or internships.</li>
+      <li>To optimize website performance and ensure the complex front-end architecture loads correctly across different devices.</li>
+      <li>To maintain the security and integrity of this digital space.</li>
+    </ul>
+    <p class="legal-p"><strong>I do not sell, rent, or trade your personal information to any third parties under any circumstances.</strong></p>
+  </div>
+
+  <div class="legal-sec">
+    <h2 class="legal-h">04. Third-Party Integrations</h2>
+    <p class="legal-p">This portfolio utilizes modern web technologies that may involve third-party services. These include standard content delivery networks (CDNs) to load libraries like <em>Three.js</em> and <em>GSAP</em>, as well as Google Fonts. These providers may receive your IP address as part of the standard HTTP request process necessary to deliver these assets to your browser.</p>
+  </div>
+
+  <div class="legal-sec">
+    <h2 class="legal-h">05. Security & Retention</h2>
+    <p class="legal-p">I implement reasonable security measures to protect any professional correspondence. Client inquiries and related data are retained only for as long as necessary to fulfill the purposes outlined in this policy or as required by standard business practices.</p>
+  </div>
+
+  <div class="legal-sec">
+    <h2 class="legal-h">06. Contact Protocol</h2>
+    <p class="legal-p">If you have any questions or concerns regarding this policy, the technical infrastructure of this site, or how your data is handled, please initialize a secure channel via email.</p>
+    <p class="legal-p">Ping: <a href="mailto:shubhkothari.dev@gmail.com">shubhkothari.dev@gmail.com</a></p>
+  </div>
+
+  <div class="back-btn-wrap">
+    <a href="index.html" class="mb" id="magBtn"><span>← Return to Database</span></a>
+  </div>
+
+</section>
+
+<footer>
+  <div class="fl">SK</div>
+  <div class="fc">Designed &amp; Built by Shubh Kothari · 2026</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+<script>
+/* ─── CURSOR ─── */
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.set(cd,{x:mx,y:my})});
+(function cl(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;gsap.set(cr,{x:rx,y:ry});requestAnimationFrame(cl)})();
+document.querySelectorAll('a,button,.mb').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
+document.addEventListener('mousedown',()=>document.body.classList.add('ck'));
+document.addEventListener('mouseup',()=>document.body.classList.remove('ck'));
+
+/* ─── SCROLL SMOOTHING ─── */
+const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), direction: 'vertical', smooth: true });
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+
+/* ─── MENU LOGIC & SCRAMBLE ─── */
+let menuOpen = false;
+let hudInterval = null;
+
+function scramble(el,text,cb){
+  const ch='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';let i=0;
+  const iv=setInterval(()=>{el.textContent=text.split('').map((c,j)=>c===' '?' ':j<i?text[j]:ch[Math.floor(Math.random()*ch.length)]).join('');if(i>=text.length){clearInterval(iv);cb&&cb();}i+=.4;},28);
+}
+
+function openMenu(){
+  menuOpen = true;
+  document.getElementById('menu-trigger').classList.add('active');
+  document.getElementById('fs-menu').classList.add('open');
+  gsap.to('.fs-link', {opacity: 1, y: 0, duration: 0.8, stagger: 0.1, delay: 0.3, ease: 'power4.out'});
+  gsap.to('.fs-hud', {opacity: 1, x: 0, duration: 0.8, delay: 0.6, ease: 'power3.out'});
+}
+
+function closeMenu(){
+  menuOpen = false;
+  document.getElementById('menu-trigger').classList.remove('active');
+  gsap.to('.fs-link', {opacity: 0, y: -40, duration: 0.4, stagger: 0.05, ease: 'power2.in'});
+  gsap.to('.fs-hud', {opacity: 0, x: 40, duration: 0.4, ease: 'power2.in', onComplete: () => {
+    document.getElementById('fs-menu').classList.remove('open');
+    document.getElementById('fs-hud-text').innerText = "AWAITING USER INPUT..._";
+  }});
+}
+
+function toggleMenu(){ menuOpen ? closeMenu() : openMenu(); }
+
+const hudText = document.getElementById('fs-hud-text');
+document.querySelectorAll('.fs-link').forEach(link => {
+  link.addEventListener('mouseenter', (e) => {
+    const targetText = e.target.getAttribute('data-info');
+    if(hudInterval) clearInterval(hudInterval);
+    scramble(hudText, targetText); 
+  });
+  link.addEventListener('mouseleave', () => {
+    if(hudInterval) clearInterval(hudInterval);
+    scramble(hudText, "AWAITING USER INPUT..._");
+  });
+});
+
+/* ─── MAGNETIC BUTTON ─── */
+const btn = document.getElementById('magBtn');
+if(btn) {
+  const wrap = btn.parentElement;
+  wrap.addEventListener('mousemove', e => {
+    const r = wrap.getBoundingClientRect();
+    gsap.to(btn, {x: (e.clientX - r.left - r.width/2)*.2, y: (e.clientY - r.top - r.height/2)*.2, duration: .35, ease: 'power2.out'});
+  });
+  wrap.addEventListener('mouseleave', () => gsap.to(btn, {x: 0, y: 0, duration: .65, ease: 'elastic.out(1,.45)'}));
+}
+
+/* ─── ENTRANCE ANIMATION ─── */
+window.addEventListener('DOMContentLoaded', () => {
+  gsap.from('.lh-content', {y: 60, opacity: 0, duration: 1.2, ease: 'power4.out', delay: 0.2});
+  gsap.from('.legal-sec', {y: 40, opacity: 0, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.4});
+});
+</script>
+</body>
+</html>
