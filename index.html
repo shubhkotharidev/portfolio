@@ -902,19 +902,9 @@ function runHeroIn(){
 }
 /* ─── PARALLAX ─── */
 function initParallax(){
-  gsap.to('.hh', {
-    y: -50, // Moves the whole block up slightly on scroll
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1.5
-    }
-  });
+  // Left empty to keep the text completely still on scroll
 }
 /* ─── MAGNETIC BUTTON ─── */
-// The magnetic animation part
 function initMagBtn(){
   const btn=document.getElementById('magBtn');if(!btn)return;
   const wrap=btn.closest('.mbw');
