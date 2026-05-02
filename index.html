@@ -890,22 +890,29 @@ initHero3D();initMagBtn();initParallax();    setTimeout(()=>{
 function runHeroIn(){
   const tl = gsap.timeline({delay: .4});
   tl.to('#hEye', {opacity: 1, duration: .7, ease: 'power3.out'})
-    // We grouped hh1, hh2, hh3 AND hDesc into this single array so they stagger together!
     .to(['#hh1', '#hh2', '#hh3', '#hDesc'], {y: '0%', duration: 1.15, ease: 'power4.out', stagger: .14}, '-=.3')
     .to('#hScr', {opacity: 1, duration: .6}, '-=.2')
     .call(() => {
-      // Unclip the containers so parts of letters (like hanging 'g's or 'y's) don't get cut off
+      // Unclip the containers so parts of letters don't get cut off
       document.querySelectorAll('.hhr, .hd').forEach(el => {
         el.style.overflow = 'visible';
-        el.style.paddingBottom = '0';
+        // REMOVED the paddingBottom line to prevent layout jump!
       });
     });
 }
 /* ─── PARALLAX ─── */
 function initParallax(){
-  const rows=document.querySelectorAll('.hhr');
-  [-40,-25,-14].forEach((y,i)=>gsap.to(rows[i],{y,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:1.5}}));
-  }
+  gsap.to('.hh', {
+    y: -50, // Moves the whole block up slightly on scroll
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1.5
+    }
+  });
+}
 /* ─── MAGNETIC BUTTON ─── */
 // The magnetic animation part
 function initMagBtn(){
